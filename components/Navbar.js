@@ -39,7 +39,7 @@ export default function Navbar() {
           </span>
           {/* Replace above with: <img src="/logo.png" alt="ROBROUX Logo" className="h-9 w-auto" /> */}
           <span className="chrome-text text-lg font-bold tracking-[0.15em] uppercase">
-            ROBROUX
+            MaxRBX
           </span>
         </Link>
 
