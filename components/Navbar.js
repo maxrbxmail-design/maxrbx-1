@@ -33,8 +33,8 @@ export default function Navbar() {
 
         {/* Logo */}
 <Link href="/" className="flex items-center gap-3 group">
-  <span className="logo-box w-9 h-9 flex items-center justify-center border border-cyan-400/50 group-hover:border-cyan-400 transition-all duration-300">
-    <img src="/max.png" alt="ROBROUX Logo" className="h-full w-auto" />
+  <span className="logo-box w-9 h-9 flex items-center justify-center transition-all duration-300">
+    <img src="/max.png" alt="MaxRBX Logo" className="h-full w-auto" />
   </span>
 
   <span className="chrome-text text-lg font-bold tracking-[0.15em] uppercase">
