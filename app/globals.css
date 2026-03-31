@@ -42,7 +42,7 @@ html, body {
 /* =============================================
    CHROME TEXT EFFECT
    ============================================= */
-.chrome-text {
+/*.chrome-text {
   background: linear-gradient(
     180deg,
     var(--chrome-shine) 0%,
@@ -57,6 +57,23 @@ html, body {
   background-clip: text;
   -webkit-text-fill-color: transparent;
   filter: drop-shadow(0 0 8px rgba(255,255,255,0.25));
+}
+*/
+.chrome-text {
+    background: linear-gradient(
+        180deg,
+        #caffda 0%,     /* chrome shine - light mint */
+        #5cff9d 20%,    /* neon money green */
+        #1fbf5b 45%,    /* mid cyber green */
+        #0d3f24 55%,    /* deep dark green */
+        #1fbf5b 70%,    /* mid green reflection */
+        #caffda 85%,    /* shine highlight */
+        #1fbf5b 100%    /* finish with mid green */
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, .25));
 }
 
 /* =============================================
