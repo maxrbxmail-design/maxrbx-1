@@ -37,7 +37,7 @@ export default function Navbar() {
     <img src="/max.png" alt="MaxRBX Logo" className="h-full w-auto" />
   </span>
 
-  <span className="chrome-text text-lg font-bold tracking-[0.15em] uppercase">
+  <span className="text-lg font-bold tracking-[0.15em] uppercase">
     MaxRBX
   </span>
 </Link>
