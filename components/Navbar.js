@@ -11,13 +11,13 @@ function NavLink({ label }) {
       <button
         onMouseEnter={() => setShow(true)}
         onMouseLeave={() => setShow(false)}
-        className="text-white/50 hover:text-cyan-400 text-xs tracking-[0.25em] uppercase transition-colors duration-200"
+        className="text-white/50 text-xs tracking-[0.25em] uppercase transition-colors duration-200"
       >
         {label}
       </button>
       {show && (
         <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 z-50">
-          <div className="bg-black border border-cyan-400/40 px-3 py-1.5 whitespace-nowrap text-cyan-400 text-[10px] tracking-widest uppercase shadow-[0_0_12px_rgba(0,255,255,0.15)]">
+          <div className="bg-black border border-cyan-400/40 px-3 py-1.5 whitespace-nowrap text-[10px] tracking-widest uppercase shadow-[0_0_12px_rgba(0,255,255,0.15)]">
             Coming Soon
           </div>
         </div>
@@ -34,7 +34,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3 group">
           {/* Logo placeholder — swap this <span> for your <img /> */}
-          <span className="logo-box w-9 h-9 flex items-center justify-center text-[10px] font-bold text-cyan-400 border border-cyan-400/50 group-hover:border-cyan-400 transition-all duration-300 tracking-widest">
+          <span className="logo-box w-9 h-9 flex items-center justify-center text-[10px] font-bold border border-cyan-400/50 group-hover:border-cyan-400 transition-all duration-300 tracking-widest">
             mX
           </span>
           {/* Replace above with: <img src="/logo.png" alt="ROBROUX Logo" className="h-9 w-auto" /> */}
@@ -47,7 +47,7 @@ export default function Navbar() {
         <div className="flex items-center gap-8">
           <Link
             href="/"
-            className="text-white/50 hover:text-cyan-400 text-xs tracking-[0.25em] uppercase transition-colors duration-200"
+            className="text-white/50 text-xs tracking-[0.25em] uppercase transition-colors duration-200"
           >
             Home
           </Link>
