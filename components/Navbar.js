@@ -35,9 +35,9 @@ export default function Navbar() {
         <Link href="/" className="flex items-center gap-3 group">
           {/* Logo placeholder — swap this <span> for your <img /> */}
           <span className="logo-box w-9 h-9 flex items-center justify-center text-[10px] font-bold text-cyan-400 border border-cyan-400/50 group-hover:border-cyan-400 transition-all duration-300 tracking-widest">
-            mX
+          <img src="public/max.png" alt="ROBROUX Logo" className="h-9 w-auto" />
           </span>
-          {/* Replace above with: <img src="/logo.png" alt="ROBROUX Logo" className="h-9 w-auto" /> */}
+        
           <span className="chrome-text text-lg font-bold tracking-[0.15em] uppercase">
             MaxRBX
           </span>
