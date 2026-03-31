@@ -1,0 +1,213 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =============================================
+   CSS VARIABLES — CYBER CHROME SYSTEM
+   ============================================= */
+:root {
+  --cyan: #00FFFF;
+  --cyan-dim: rgba(0, 255, 255, 0.4);
+  --cyan-glow: rgba(0, 255, 255, 0.15);
+  --chrome-light: #e8e8e8;
+  --chrome-mid: #a0a0a0;
+  --chrome-dark: #606060;
+  --chrome-shine: #ffffff;
+  --bg: #000000;
+}
+
+/* =============================================
+   BASE RESET
+   ============================================= */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  background-color: #000000;
+  color: #ffffff;
+  font-family: 'Space Mono', monospace;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #000; }
+::-webkit-scrollbar-thumb { background: var(--cyan-dim); }
+
+/* =============================================
+   CHROME TEXT EFFECT
+   ============================================= */
+.chrome-text {
+  background: linear-gradient(
+    180deg,
+    var(--chrome-shine) 0%,
+    var(--chrome-light) 20%,
+    var(--chrome-mid)   45%,
+    var(--chrome-dark)  55%,
+    var(--chrome-mid)   70%,
+    var(--chrome-shine) 85%,
+    var(--chrome-mid)   100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 8px rgba(255,255,255,0.25));
+}
+
+/* =============================================
+   HERO TEXT
+   ============================================= */
+.hero-text {
+  color: #ffffff;
+  text-shadow:
+    0 0 20px rgba(0, 255, 255, 0.15),
+    0 2px 4px rgba(0,0,0,0.8);
+  letter-spacing: -0.02em;
+}
+
+/* =============================================
+   CYBER CARD — Angular panel with glowing chrome border
+   ============================================= */
+.cyber-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  /* Clipped angular corners (top-right, bottom-left) */
+  clip-path: polygon(
+    0 0,
+    calc(100% - 16px) 0,
+    100% 16px,
+    100% 100%,
+    16px 100%,
+    0 calc(100% - 16px)
+  );
+  box-shadow:
+    0 0 0 1px rgba(0, 255, 255, 0.08) inset,
+    0 4px 40px rgba(0, 0, 0, 0.6),
+    0 0 20px rgba(0, 255, 255, 0.04);
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.cyber-card:hover {
+  border-color: rgba(0, 255, 255, 0.35);
+  box-shadow:
+    0 0 0 1px rgba(0, 255, 255, 0.15) inset,
+    0 4px 40px rgba(0, 0, 0, 0.6),
+    0 0 30px rgba(0, 255, 255, 0.08);
+}
+
+/* =============================================
+   CORNER ACCENTS — spiky chrome spike indicators
+   ============================================= */
+.corner-tl,
+.corner-tr,
+.corner-bl,
+.corner-br {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-color: var(--cyan);
+  border-style: solid;
+  opacity: 0.7;
+}
+.corner-tl { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+.corner-tr { top: -1px; right: -1px; border-width: 2px 2px 0 0; }
+.corner-bl { bottom: -1px; left: -1px; border-width: 0 0 2px 2px; }
+.corner-br { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+
+/* =============================================
+   INPUT FIELD
+   ============================================= */
+.cyber-input {
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  background: transparent;
+  color: #ffffff;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cyber-input:focus {
+  border-bottom-color: var(--cyan);
+  box-shadow: 0 2px 0 0 rgba(0, 255, 255, 0.3);
+  outline: none;
+}
+
+.cyber-input::placeholder {
+  color: rgba(255, 255, 255, 0.25);
+}
+
+/* =============================================
+   BUTTON
+   ============================================= */
+.cyber-btn {
+  position: relative;
+  background: transparent;
+  color: var(--cyan);
+  border: 1px solid var(--cyan-dim);
+  font-family: 'Space Mono', monospace;
+  cursor: pointer;
+  clip-path: polygon(
+    0 0,
+    calc(100% - 10px) 0,
+    100% 10px,
+    100% 100%,
+    10px 100%,
+    0 calc(100% - 10px)
+  );
+  transition: background 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+  letter-spacing: 0.2em;
+}
+
+.cyber-btn:hover {
+  background: rgba(0, 255, 255, 0.08);
+  box-shadow:
+    0 0 20px rgba(0, 255, 255, 0.2),
+    inset 0 0 10px rgba(0, 255, 255, 0.05);
+  color: #ffffff;
+}
+
+.cyber-btn:active {
+  transform: scale(0.99);
+}
+
+/* =============================================
+   LOGO BOX
+   ============================================= */
+.logo-box {
+  clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+  background: rgba(0, 255, 255, 0.04);
+}
+
+/* =============================================
+   CYBER GRID BACKGROUND
+   ============================================= */
+.cyber-grid {
+  background-image:
+    linear-gradient(rgba(0, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* =============================================
+   SCAN LINE OVERLAY (subtle CRT feel)
+   ============================================= */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.03) 2px,
+    rgba(0, 0, 0, 0.03) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
