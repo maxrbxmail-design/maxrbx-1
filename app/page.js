@@ -7,26 +7,26 @@ import { useCallback } from 'react';
 // ─── Static data ─────────────────────────────────────────────────────────────
 
 const stats = [
-  { label: 'Avg. Payout Time',   value: '5m 30s',        green: false },
-  { label: 'Total Robux Earned', value: 'R$ 12,450,000', green: true  },
-  { label: 'Active Users',       value: '2,401',          green: false },
+  { label: 'No Password Required',   value: 'We never ask for your Roblox password, ever.',        green: false },
+  { label: 'Safe & Secure', value: 'Only legit offers — no tricks or fake tasks.', green: false  },
+  { label: 'Free to Use',       value: 'No fees, no purchases, no hidden costs.',          green: false },
 ];
 
 const steps = [
   {
     number: '1',
     title:  'Link Account',
-    desc:   'Connect your Roblox username — no password ever required. Setup takes under 30 seconds.',
+    desc:   'Enter your Roblox username to get started — no password needed, and it only takes a few seconds.',
   },
   {
     number: '2',
     title:  'Do Tasks',
-    desc:   'Play games, complete surveys, enter giveaways, and more to rack up your Robux balance.',
+    desc:   'Complete fun tasks like games, surveys, and giveaways to stack up your Robux earnings.',
   },
   {
     number: '3',
-    title:  'Cash Out',
-    desc:   'Withdraw directly to your Roblox account via group payout. Average delivery in 5m 30s.',
+    title:  'Get your Robux',
+    desc:   'Cash out straight to your Roblox account using group payouts, with transfers usually arriving within minutes.',
   },
 ];
 
