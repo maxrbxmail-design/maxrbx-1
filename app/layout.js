@@ -2,6 +2,7 @@ import { Space_Mono } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { DM_Sans } from 'next/font/google';
 
 const spaceMono = Space_Mono({
   subsets: ['latin'],
@@ -13,6 +14,10 @@ export const metadata = {
   title: 'ROBROUX — Fuel Your Journey',
   description: 'The premier Roblox earning platform.',
 };
+
+const dmSans = DM_Sans({ subsets: ['latin'], weight: ['400','500','600','700','800'] });
+
+
 
 export default function RootLayout({ children }) {
   return (
