@@ -11,7 +11,7 @@ const spaceMono = Space_Mono({
 });
 
 export const metadata = {
-  title: 'ROBROUX — Fuel Your Journey',
+  title: 'Earn Free Robux',
   description: 'The premier Roblox earning platform.',
 };
 
