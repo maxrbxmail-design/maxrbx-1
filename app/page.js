@@ -7,9 +7,9 @@ import { useCallback } from 'react';
 // ─── Static data ─────────────────────────────────────────────────────────────
 
 const stats = [
-  { label: 'No Password Required',   value: 'We never ask for your Roblox password, ever.',        green: false },
-  { label: 'Safe & Secure', value: 'Only legit offers — no tricks or fake tasks.', green: false  },
-  { label: 'Free to Use',       value: 'No fees, no purchases, no hidden costs.',          green: false },
+{ label: 'We never ask for your Roblox password, ever.', value: 'No Password Required', green: false },
+{ label: 'Only legit offers — no tricks or fake tasks.', value: 'Safe & Secure', green: false },
+{ label: 'No fees, no purchases, no hidden costs.', value: 'Free to Use', green: false },
 ];
 
 const steps = [
