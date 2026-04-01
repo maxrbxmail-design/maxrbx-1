@@ -22,8 +22,8 @@ export default function Footer() {
           >
             ◆ Youtube / X
           </a>
-          <a href="/privacy">Privacy Policy</a> 
-          <a href="/terms">Terms of Service</a>
+          <a href="/privacy" className="text-white/30 hover:text-cyan-400 text-[10px] tracking-[0.25em] uppercase transition-colors duration-200">Privacy Policy</a> 
+          <a href="/terms" className="text-white/30 hover:text-cyan-400 text-[10px] tracking-[0.25em] uppercase transition-colors duration-200">Terms of Service</a>
         </div>
       </div>
     </footer>
