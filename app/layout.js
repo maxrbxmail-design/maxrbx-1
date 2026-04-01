@@ -13,6 +13,9 @@ const spaceMono = Space_Mono({
 export const metadata = {
   title: 'Earn Free Robux',
   description: 'The premier Roblox earning platform.',
+  icons: {
+    icon: '/favicon.ico', // This points directly to your public folder!
+  },
 };
 
 const dmSans = DM_Sans({ subsets: ['latin'], weight: ['400','500','600','700','800'] });
