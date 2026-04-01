@@ -42,6 +42,20 @@ export default function Navbar() {
     return () => window.removeEventListener('maxrbx:open-login', handler);
   }, []);
 
+
+// ─── LISTEN FOR LOGOUT (ADD THIS!) ───────────────────────────────────
+  useEffect(() => {
+    const handleLogoutEvent = () => {
+      setIsLoggedIn(false);
+      setUsername('');
+      setRobuxBalance(0);
+      setAvatarUrl('');
+    };
+    
+    window.addEventListener('maxrbx:logged-out', handleLogoutEvent);
+    return () => window.removeEventListener('maxrbx:logged-out', handleLogoutEvent);
+  }, []);
+  
   // ─── 3. HANDLE LOGIN (Hits your actual API) ───────────────────────────────
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
