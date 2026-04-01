@@ -91,6 +91,15 @@ export default function AccountPage() {
       .finally(() => setLoading(false));
   }, [router]);
 
+  const [referralStats, setReferralStats] = useState({ referralCount: 0, lifetimeReferralEarnings: 0 });
+
+  useEffect(() => {
+    fetch('/api/referral/stats')
+      .then((r) => r.ok ? r.json() : null)
+      .then((d) => { if (d?.stats) setReferralStats(d.stats); })
+      .catch(() => {});
+  }, []);
+
   const handlePromo = async () => {
     const code = promoCode.trim().toUpperCase();
     if (!code) {
@@ -300,25 +309,58 @@ export default function AccountPage() {
               {/* Referral Link */}
               <SectionCard title="🔗 Your Referral Link">
                 <p className="text-xs mb-4" style={{ color: 'rgba(255,255,255,0.4)' }}>
-                  Share your link. Earn R$ for every friend who joins.
+                  Share your link. Earn <span style={{ color: '#39FF14' }}>15% of every R$</span> your referrals earn — forever.
                 </p>
+
+                {/* Link copy row */}
                 <div
-                  className="flex items-center gap-2 px-3 py-2.5 rounded-xl border text-sm overflow-hidden"
+                  className="flex items-center gap-2 px-3 py-2.5 rounded-xl border text-sm overflow-hidden mb-3"
                   style={{ backgroundColor: '#1A1D27', borderColor: 'rgba(57,255,20,0.2)' }}
                 >
-                  <span className="flex-1 truncate text-xs" style={{ color: 'rgba(255,255,255,0.6)' }}>
+                  <span className="flex-1 truncate text-xs font-mono" style={{ color: 'rgba(255,255,255,0.7)' }}>
                     {referralLink}
                   </span>
                   <button
                     onClick={handleCopy}
-                    className="flex-shrink-0 px-3 py-1.5 rounded-lg text-xs font-bold text-black transition-all hover:brightness-110"
-                    style={{ backgroundColor: copied ? 'rgba(57,255,20,0.7)' : '#39FF14' }}
+                    className="flex-shrink-0 px-3 py-1.5 rounded-lg text-xs font-bold text-black transition-all hover:brightness-110 flex items-center gap-1.5"
+                    style={{ backgroundColor: copied ? 'rgba(57,255,20,0.7)' : '#39FF14', minWidth: 72, justifyContent: 'center' }}
                   >
-                    {copied ? 'Copied!' : 'Copy'}
+                    {copied ? (
+                      <><span>✓</span> Copied!</>
+                    ) : (
+                      <><svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" /></svg>Copy</>
+                    )}
                   </button>
                 </div>
-                <p className="mt-3 text-xs" style={{ color: 'rgba(255,255,255,0.3)' }}>
-                  You'll receive a bonus when your referral completes their first offer.
+
+                {/* Live referral stats */}
+                <div className="grid grid-cols-2 gap-3 mt-4">
+                  <div
+                    className="flex flex-col gap-1 p-3 rounded-xl border"
+                    style={{ backgroundColor: 'rgba(57,255,20,0.04)', borderColor: 'rgba(57,255,20,0.12)' }}
+                  >
+                    <span className="text-[10px] font-bold tracking-widest uppercase" style={{ color: 'rgba(255,255,255,0.4)' }}>
+                      Friends Referred
+                    </span>
+                    <span className="text-xl font-extrabold" style={{ color: '#39FF14' }}>
+                      {referralStats.referralCount}
+                    </span>
+                  </div>
+                  <div
+                    className="flex flex-col gap-1 p-3 rounded-xl border"
+                    style={{ backgroundColor: 'rgba(57,255,20,0.04)', borderColor: 'rgba(57,255,20,0.12)' }}
+                  >
+                    <span className="text-[10px] font-bold tracking-widest uppercase" style={{ color: 'rgba(255,255,255,0.4)' }}>
+                      Referral Earnings
+                    </span>
+                    <span className="text-xl font-extrabold" style={{ color: '#39FF14' }}>
+                      {referralStats.lifetimeReferralEarnings} R$
+                    </span>
+                  </div>
+                </div>
+
+                <p className="mt-3 text-[10px]" style={{ color: 'rgba(255,255,255,0.25)' }}>
+                  Bonuses are paid automatically when your referrals complete offers. Self-referrals are blocked.
                 </p>
               </SectionCard>
             </div>
