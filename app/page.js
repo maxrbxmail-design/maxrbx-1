@@ -169,3 +169,96 @@ export default function HomePage() {
     </div>
   );
 }
+
+
+
+      {/* ── SOCIAL PROOF ──────────────────────────────────────────────────── */}
+      <section
+        className="border-t py-24"
+        style={{ borderColor: 'rgba(255,255,255,0.07)', backgroundColor: 'rgba(255,255,255,0.015)' }}
+      >
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-14">
+            <p className="text-xs font-bold tracking-widest uppercase mb-3" style={{ color: '#39FF14' }}>
+              Real Users, Real Rewards
+            </p>
+            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight">
+              What Our Community Says
+            </h2>
+            <p className="mt-3 text-sm" style={{ color: 'rgba(255,255,255,0.45)' }}>
+              Join thousands of players already earning for free.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {reviews.map((r) => (
+              <div
+                key={r.name}
+                className="rounded-2xl p-6 border flex flex-col"
+                style={{
+                  backgroundColor: '#13151A',
+                  borderColor: 'rgba(255,255,255,0.08)',
+                }}
+              >
+                <StarRating count={r.rating} />
+
+                <p className="text-sm leading-relaxed mb-5 flex-1" style={{ color: 'rgba(255,255,255,0.7)' }}>
+                  "{r.text}"
+                </p>
+
+                <div className="flex items-center gap-3">
+                  <div
+                    className="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold text-black flex-shrink-0"
+                    style={{ backgroundColor: '#39FF14' }}
+                  >
+                    {r.avatar}
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-white">{r.name}</p>
+                    <p className="text-xs" style={{ color: 'rgba(255,255,255,0.35)' }}>Verified User</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── FINAL CTA BANNER ──────────────────────────────────────────────── */}
+      <section className="max-w-7xl mx-auto px-6 py-20">
+        <div
+          className="rounded-3xl p-12 text-center border relative overflow-hidden"
+          style={{
+            backgroundColor: '#13151A',
+            borderColor: 'rgba(57,255,20,0.2)',
+          }}
+        >
+          {/* Subtle glow behind */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{ background: 'radial-gradient(ellipse at 50% 0%, rgba(57,255,20,0.08) 0%, transparent 70%)' }}
+          />
+
+          <h2 className="relative text-3xl sm:text-4xl font-extrabold tracking-tight mb-4">
+            Ready to start earning{' '}
+            <span style={{ color: '#39FF14' }}>for free?</span>
+          </h2>
+          <p className="relative text-base mb-8" style={{ color: 'rgba(255,255,255,0.55)' }}>
+            No password. No credit card. Just Robux.
+          </p>
+          <Link
+            href="/dashboard"
+            className="relative inline-flex items-center gap-2 px-8 py-4 rounded-xl text-base font-bold text-black transition-all duration-200 hover:brightness-110 active:scale-95"
+            style={{ backgroundColor: '#39FF14' }}
+          >
+            Start Earning Now
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+            </svg>
+          </Link>
+        </div>
+      </section>
+    </div>
+  );
+}
+
