@@ -18,7 +18,7 @@ export default function Navbar() {
   const [loginLoading, setLoginLoading] = useState(false);
   const [loginError, setLoginError] = useState('');
 
-  // ─── 2. CHECK SESSION ON LOAD ─────────────────────────────────────────────
+// ─── EXISTING SESSION CHECK ─────────────────────────────────────────────
   useEffect(() => {
     // Hits your /api/me to see if a session cookie already exists
     fetch('/api/me')
@@ -32,6 +32,14 @@ export default function Navbar() {
         }
       })
       .catch(() => console.log('Not logged in.'));
+  }, []);
+
+  // ─── CLAUDE'S NEW EVENT LISTENER (ADD THIS!) ───────────────────────────
+  useEffect(() => {
+    const handler = () => setShowLoginModal(true); 
+    
+    window.addEventListener('maxrbx:open-login', handler);
+    return () => window.removeEventListener('maxrbx:open-login', handler);
   }, []);
 
   // ─── 3. HANDLE LOGIN (Hits your actual API) ───────────────────────────────
