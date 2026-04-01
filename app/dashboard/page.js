@@ -47,9 +47,15 @@ export default function DashboardPage() {
       .finally(() => setLoading(false));
   }, [router]);
 
-  const handleLogout = async () => {
+const handleLogout = async () => {
+    // 1. Tell the server to delete the session cookie
     await fetch('/api/logout', { method: 'POST' });
-    router.push('/');
+    
+    // 2. Tell the Navbar to clear its memory!
+    window.dispatchEvent(new CustomEvent('maxrbx:logged-out'));
+    
+    // 3. Force a hard window redirect to the home page (This clears Next.js cache!)
+    window.location.href = '/';
   };
 
   if (loading) {
