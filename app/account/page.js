@@ -77,9 +77,10 @@ function SectionCard({ title, children }) {
 export default function AccountPage() {
   const [user, setUser]       = useState(null);
   const [loading, setLoading] = useState(true);
-  const [promoCode, setPromoCode]   = useState('');
-  const [promoMsg, setPromoMsg]     = useState(null);
-  const [copied, setCopied]         = useState(false);
+  const [promoCode, setPromoCode]       = useState('');
+  const [promoMsg, setPromoMsg]         = useState(null); // { type: 'success'|'error', text: string }
+  const [promoLoading, setPromoLoading] = useState(false);
+  const [copied, setCopied]             = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -90,11 +91,34 @@ export default function AccountPage() {
       .finally(() => setLoading(false));
   }, [router]);
 
-  const handlePromo = () => {
-    if (!promoCode.trim()) { setPromoMsg({ type: 'error', text: 'Enter a promo code.' }); return; }
-    // Wire to your API when ready
-    setPromoMsg({ type: 'error', text: 'Code not found or already redeemed.' });
-    setTimeout(() => setPromoMsg(null), 3000);
+  const handlePromo = async () => {
+    const code = promoCode.trim().toUpperCase();
+    if (!code) {
+      setPromoMsg({ type: 'error', text: 'Please enter a promo code.' });
+      return;
+    }
+    setPromoLoading(true);
+    setPromoMsg(null);
+    try {
+      const res  = await fetch('/api/promo', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setPromoMsg({ type: 'success', text: data.message ?? 'Code redeemed! Your balance has been updated.' });
+        setPromoCode('');
+        // Re-fetch user so sidebar balance updates live
+        fetch('/api/me').then((r) => r.json()).then((d) => { if (d?.user) setUser(d.user); });
+      } else {
+        setPromoMsg({ type: 'error', text: data.error ?? 'Invalid or already redeemed code.' });
+      }
+    } catch {
+      setPromoMsg({ type: 'error', text: 'Network error. Please try again.' });
+    } finally {
+      setPromoLoading(false);
+    }
   };
 
   const referralLink = user
@@ -222,23 +246,54 @@ export default function AccountPage() {
                     type="text"
                     value={promoCode}
                     onChange={(e) => { setPromoCode(e.target.value.toUpperCase()); setPromoMsg(null); }}
-                    onKeyDown={(e) => e.key === 'Enter' && handlePromo()}
+                    onKeyDown={(e) => { if (e.key === 'Enter' && !promoLoading) handlePromo(); }}
                     placeholder="MAXRBX2025"
-                    className="flex-1 px-3 py-2.5 rounded-xl text-sm text-white placeholder-white/25 outline-none border transition-all"
-                    style={{ backgroundColor: '#1A1D27', borderColor: 'rgba(255,255,255,0.08)' }}
+                    disabled={promoLoading}
+                    className="flex-1 px-3 py-2.5 rounded-xl text-sm text-white placeholder-white/25 outline-none border transition-all duration-200 disabled:opacity-50"
+                    style={{
+                      backgroundColor: '#1A1D27',
+                      borderColor: promoMsg?.type === 'error'
+                        ? 'rgba(239,68,68,0.45)'
+                        : promoMsg?.type === 'success'
+                        ? 'rgba(57,255,20,0.35)'
+                        : 'rgba(255,255,255,0.08)',
+                    }}
                   />
                   <button
                     onClick={handlePromo}
-                    className="px-4 py-2.5 rounded-xl text-sm font-bold text-black transition-all hover:brightness-110 active:scale-95 flex-shrink-0"
-                    style={{ backgroundColor: '#39FF14' }}
+                    disabled={promoLoading}
+                    className="px-4 py-2.5 rounded-xl text-sm font-bold text-black transition-all hover:brightness-110 active:scale-95 flex-shrink-0 disabled:opacity-60 disabled:cursor-not-allowed flex items-center gap-2"
+                    style={{ backgroundColor: '#39FF14', minWidth: '90px', justifyContent: 'center' }}
                   >
-                    Redeem
+                    {promoLoading ? (
+                      <>
+                        <svg className="animate-spin w-3.5 h-3.5" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
+                        </svg>
+                        Checking
+                      </>
+                    ) : 'Redeem'}
                   </button>
                 </div>
+
+                {/* Feedback message */}
                 {promoMsg && (
-                  <p className={`mt-2 text-xs font-semibold ${promoMsg.type === 'success' ? 'text-[#39FF14]' : 'text-red-400'}`}>
+                  <div
+                    className="mt-3 flex items-start gap-2 px-3 py-2.5 rounded-xl text-xs font-semibold"
+                    style={{
+                      backgroundColor: promoMsg.type === 'success'
+                        ? 'rgba(57,255,20,0.08)'
+                        : 'rgba(239,68,68,0.08)',
+                      border: `1px solid ${promoMsg.type === 'success' ? 'rgba(57,255,20,0.2)' : 'rgba(239,68,68,0.2)'}`,
+                      color: promoMsg.type === 'success' ? '#39FF14' : '#f87171',
+                    }}
+                  >
+                    <span className="flex-shrink-0 mt-px">
+                      {promoMsg.type === 'success' ? '✓' : '✕'}
+                    </span>
                     {promoMsg.text}
-                  </p>
+                  </div>
                 )}
               </SectionCard>
 
