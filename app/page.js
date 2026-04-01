@@ -104,10 +104,10 @@ export default function HomePage() {
         {/* Left — copy */}
         <div>
           {/* Eyebrow badge */}
-          <div className="inline-flex items-center gap-2 mb-6 px-3 py-1.5 rounded-full border border-[#39FF14]/30 bg-[#39FF14]/5">
+          <div className="inline-flex items-center gap-2 mb-6 px-3 py-1.5 rounded-full border border-[#FFFFFF]/30 bg-[#39FF14]/5">
             <span className="w-2 h-2 rounded-full bg-[#39FF14] animate-pulse" />
-            <span className="text-[#39FF14] text-xs font-semibold tracking-widest uppercase">
-              Trusted by 2,400+ users
+            <span className="text-[#FFFFFF] text-xs font-semibold tracking-widest uppercase">
+              We’re newly launched! Explore MaxRBX Beta
             </span>
           </div>
 
@@ -117,13 +117,13 @@ export default function HomePage() {
             style={{ letterSpacing: '-0.02em' }}
           >
             Earn{' '}
-            <span style={{ color: '#39FF14' }}>FREE Robux</span>
-            {' '}by doing Simple Tasks
+            <span class="chrome-text" style={{ color: '#39FF14' }}>FREE Robux</span>
+            {' '}by doing Easy Offers
           </h1>
 
           {/* Subheading */}
           <p className="text-lg leading-relaxed mb-10" style={{ color: 'rgba(255,255,255,0.6)' }}>
-            Play games, do surveys, win giveaways, and more to get free robux.
+            Play, complete, win, and earn—get free Robux your way! Easiest for everyone
             No password required.
           </p>
 
@@ -146,7 +146,7 @@ export default function HomePage() {
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M8 5v14l11-7z" />
               </svg>
-              Watch Tutorial
+              Tutorial
             </button>
           </div>
 
