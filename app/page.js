@@ -1,29 +1,32 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
+import { useCallback } from 'react';
 
-// ─── Static data ────────────────────────────────────────────────────────────
+// ─── Static data ─────────────────────────────────────────────────────────────
 
 const stats = [
-  { label: 'Avg. Payout Time',    value: '5m 30s',         green: false },
-  { label: 'Total Robux Earned',  value: 'R$ 12,450,000',  green: true  },
-  { label: 'Active Users',        value: '2,401',           green: false },
+  { label: 'Avg. Payout Time',   value: '5m 30s',        green: false },
+  { label: 'Total Robux Earned', value: 'R$ 12,450,000', green: true  },
+  { label: 'Active Users',       value: '2,401',          green: false },
 ];
 
 const steps = [
   {
     number: '1',
-    title: 'Link Account',
-    desc:  'Connect your Roblox username — no password ever required. Setup takes under 30 seconds.',
+    title:  'Link Account',
+    desc:   'Connect your Roblox username — no password ever required. Setup takes under 30 seconds.',
   },
   {
     number: '2',
-    title: 'Do Tasks',
-    desc:  'Play games, complete surveys, enter giveaways, and more to rack up your Robux balance.',
+    title:  'Do Tasks',
+    desc:   'Play games, complete surveys, enter giveaways, and more to rack up your Robux balance.',
   },
   {
     number: '3',
-    title: 'Cash Out',
-    desc:  'Withdraw directly to your Roblox account via group payout. Average delivery in 5m 30s.',
+    title:  'Cash Out',
+    desc:   'Withdraw directly to your Roblox account via group payout. Average delivery in 5m 30s.',
   },
 ];
 
@@ -54,7 +57,16 @@ const reviews = [
   },
 ];
 
-// ─── Sub-components ──────────────────────────────────────────────────────────
+// ─── Helpers ─────────────────────────────────────────────────────────────────
+
+/**
+ * Dispatch a custom event that Navbar.js listens for to open its login modal.
+ * If you prefer smooth-scroll instead, swap the body of this function with:
+ *   window.scrollTo({ top: 0, behavior: 'smooth' });
+ */
+function openLoginModal() {
+  window.dispatchEvent(new CustomEvent('maxrbx:open-login'));
+}
 
 function StarRating({ count }) {
   return (
@@ -73,20 +85,20 @@ function StarRating({ count }) {
   );
 }
 
-// ─── Page ────────────────────────────────────────────────────────────────────
+// ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function HomePage() {
+  const handleStartEarning = useCallback(() => {
+    openLoginModal();
+  }, []);
+
   return (
     <div
       className="min-h-screen text-white"
       style={{ backgroundColor: '#0B0C10', fontFamily: "'DM Sans', 'Outfit', sans-serif" }}
     >
-      {/*
-        Google Fonts — add this to app/layout.js <head> if not already present:
-        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-      */}
 
-      {/* ── HERO ──────────────────────────────────────────────────────────── */}
+      {/* ── HERO ────────────────────────────────────────────────────────────── */}
       <section className="max-w-7xl mx-auto px-6 pt-24 pb-20 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
         {/* Left — copy */}
@@ -101,13 +113,12 @@ export default function HomePage() {
 
           {/* Heading */}
           <h1
-            className="text-4xl sm:text-5xl xl:text-6xl font-extrabold leading-[1.1] tracking-tight mb-6"
+            className="text-4xl sm:text-5xl xl:text-6xl font-extrabold leading-[1.1] mb-6"
             style={{ letterSpacing: '-0.02em' }}
           >
             Earn{' '}
             <span style={{ color: '#39FF14' }}>FREE Robux</span>
-            {' '}by doing{' '}
-            Simple Tasks
+            {' '}by doing Simple Tasks
           </h1>
 
           {/* Subheading */}
@@ -118,8 +129,9 @@ export default function HomePage() {
 
           {/* CTA buttons */}
           <div className="flex flex-wrap gap-4">
-            <Link
-              href="/dashboard"
+            {/* PRIMARY — opens Navbar login modal */}
+            <button
+              onClick={handleStartEarning}
               className="inline-flex items-center gap-2 px-7 py-4 rounded-xl text-base font-bold text-black transition-all duration-200 hover:brightness-110 active:scale-95"
               style={{ backgroundColor: '#39FF14' }}
             >
@@ -127,11 +139,10 @@ export default function HomePage() {
               <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
               </svg>
-            </Link>
+            </button>
 
-            <button
-              className="inline-flex items-center gap-2 px-7 py-4 rounded-xl text-base font-semibold text-white border border-white/25 hover:border-white/50 hover:bg-white/5 transition-all duration-200 active:scale-95"
-            >
+            {/* SECONDARY — inert tutorial button */}
+            <button className="inline-flex items-center gap-2 px-7 py-4 rounded-xl text-base font-semibold text-white border border-white/25 hover:border-white/50 hover:bg-white/5 transition-all duration-200 active:scale-95">
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M8 5v14l11-7z" />
               </svg>
@@ -147,10 +158,9 @@ export default function HomePage() {
 
         {/* Right — image */}
         <div className="flex justify-center lg:justify-end">
-          {/* Outer glow wrapper */}
           <div className="relative" style={{ width: 400, height: 400 }}>
 
-            {/* Soft radial glow behind image */}
+            {/* Soft radial glow */}
             <div
               className="absolute inset-0 rounded-full"
               style={{
@@ -158,8 +168,6 @@ export default function HomePage() {
                 transform: 'scale(1.15)',
               }}
             />
-
-            {/* Secondary ambient ring */}
             <div
               className="absolute inset-0 rounded-full"
               style={{
@@ -167,7 +175,7 @@ export default function HomePage() {
               }}
             />
 
-            {/* Image container */}
+            {/* Hero image */}
             <div className="relative w-full h-full">
               <Image
                 src="/hero-render.png"
@@ -179,7 +187,7 @@ export default function HomePage() {
               />
             </div>
 
-            {/* Floating stat pill — top right */}
+            {/* Floating pill — top right */}
             <div
               className="absolute -top-3 -right-4 flex items-center gap-2 px-3.5 py-2 rounded-2xl border border-white/10 text-sm font-semibold"
               style={{ backgroundColor: '#13151A', backdropFilter: 'blur(12px)' }}
@@ -188,12 +196,17 @@ export default function HomePage() {
               <span style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.7rem' }}>just now</span>
             </div>
 
-            {/* Floating payout pill — bottom left */}
+            {/* Floating pill — bottom left */}
             <div
               className="absolute -bottom-3 -left-4 flex items-center gap-2.5 px-3.5 py-2 rounded-2xl border border-white/10 text-sm"
               style={{ backgroundColor: '#13151A', backdropFilter: 'blur(12px)' }}
             >
-              <div className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-black" style={{ backgroundColor: '#39FF14' }}>✓</div>
+              <div
+                className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-black flex-shrink-0"
+                style={{ backgroundColor: '#39FF14' }}
+              >
+                ✓
+              </div>
               <div>
                 <p className="font-semibold text-white text-xs">Payout confirmed</p>
                 <p className="text-[10px]" style={{ color: 'rgba(255,255,255,0.4)' }}>5m 12s delivery</p>
@@ -203,12 +216,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── STATS ROW ─────────────────────────────────────────────────────── */}
+      {/* ── STATS ROW ───────────────────────────────────────────────────────── */}
       <section
         className="border-y"
         style={{ borderColor: 'rgba(255,255,255,0.07)', backgroundColor: 'rgba(255,255,255,0.02)' }}
       >
-        <div className="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x" style={{ divideColor: 'rgba(255,255,255,0.07)' }}>
+        <div className="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-white/[0.07]">
           {stats.map((s) => (
             <div key={s.label} className="flex flex-col items-center justify-center py-6 sm:py-0 gap-1 text-center">
               <span
@@ -225,15 +238,13 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── HOW IT WORKS ──────────────────────────────────────────────────── */}
+      {/* ── HOW IT WORKS ────────────────────────────────────────────────────── */}
       <section className="max-w-7xl mx-auto px-6 py-24">
         <div className="text-center mb-14">
           <p className="text-xs font-bold tracking-widest uppercase mb-3" style={{ color: '#39FF14' }}>
             Simple Process
           </p>
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight">
-            How it Works
-          </h2>
+          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight">How it Works</h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -241,27 +252,20 @@ export default function HomePage() {
             <div
               key={step.number}
               className="relative rounded-2xl p-8 border transition-all duration-300 hover:-translate-y-1"
-              style={{
-                backgroundColor: '#13151A',
-                borderColor: 'rgba(255,255,255,0.08)',
-              }}
+              style={{ backgroundColor: '#13151A', borderColor: 'rgba(255,255,255,0.08)' }}
             >
-              {/* Connector line (desktop) */}
               {i < steps.length - 1 && (
                 <div
                   className="hidden md:block absolute top-[3.25rem] -right-3 w-6 h-px"
                   style={{ backgroundColor: 'rgba(57,255,20,0.3)' }}
                 />
               )}
-
-              {/* Step number badge */}
               <div
                 className="w-11 h-11 rounded-xl flex items-center justify-center text-sm font-extrabold text-black mb-5"
                 style={{ backgroundColor: '#39FF14' }}
               >
                 {step.number}
               </div>
-
               <h3 className="text-lg font-bold mb-3">{step.title}</h3>
               <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.55)' }}>
                 {step.desc}
@@ -271,7 +275,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── SOCIAL PROOF ──────────────────────────────────────────────────── */}
+      {/* ── SOCIAL PROOF ────────────────────────────────────────────────────── */}
       <section
         className="border-t py-24"
         style={{ borderColor: 'rgba(255,255,255,0.07)', backgroundColor: 'rgba(255,255,255,0.015)' }}
@@ -294,17 +298,12 @@ export default function HomePage() {
               <div
                 key={r.name}
                 className="rounded-2xl p-6 border flex flex-col"
-                style={{
-                  backgroundColor: '#13151A',
-                  borderColor: 'rgba(255,255,255,0.08)',
-                }}
+                style={{ backgroundColor: '#13151A', borderColor: 'rgba(255,255,255,0.08)' }}
               >
                 <StarRating count={r.rating} />
-
                 <p className="text-sm leading-relaxed mb-5 flex-1" style={{ color: 'rgba(255,255,255,0.7)' }}>
                   "{r.text}"
                 </p>
-
                 <div className="flex items-center gap-3">
                   <div
                     className="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold text-black flex-shrink-0"
@@ -323,21 +322,16 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── FINAL CTA BANNER ──────────────────────────────────────────────── */}
+      {/* ── FINAL CTA BANNER ────────────────────────────────────────────────── */}
       <section className="max-w-7xl mx-auto px-6 py-20">
         <div
           className="rounded-3xl p-12 text-center border relative overflow-hidden"
-          style={{
-            backgroundColor: '#13151A',
-            borderColor: 'rgba(57,255,20,0.2)',
-          }}
+          style={{ backgroundColor: '#13151A', borderColor: 'rgba(57,255,20,0.2)' }}
         >
-          {/* Subtle glow behind */}
           <div
             className="absolute inset-0 pointer-events-none"
             style={{ background: 'radial-gradient(ellipse at 50% 0%, rgba(57,255,20,0.08) 0%, transparent 70%)' }}
           />
-
           <h2 className="relative text-3xl sm:text-4xl font-extrabold tracking-tight mb-4">
             Ready to start earning{' '}
             <span style={{ color: '#39FF14' }}>for free?</span>
@@ -345,8 +339,9 @@ export default function HomePage() {
           <p className="relative text-base mb-8" style={{ color: 'rgba(255,255,255,0.55)' }}>
             No password. No credit card. Just Robux.
           </p>
-          <Link
-            href="/dashboard"
+          {/* Bottom CTA also triggers the login modal */}
+          <button
+            onClick={handleStartEarning}
             className="relative inline-flex items-center gap-2 px-8 py-4 rounded-xl text-base font-bold text-black transition-all duration-200 hover:brightness-110 active:scale-95"
             style={{ backgroundColor: '#39FF14' }}
           >
@@ -354,9 +349,10 @@ export default function HomePage() {
             <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
             </svg>
-          </Link>
+          </button>
         </div>
       </section>
+
     </div>
   );
 }
