@@ -3,11 +3,11 @@ export default function Footer() {
     <footer className="border-t border-white/10 py-8 px-4">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
         <p className="text-white/20 text-[10px] tracking-[0.35em] uppercase">
-          © 2025 ROBROUX — All rights reserved
+          © 2026 MaxRBX — All rights reserved
         </p>
         <div className="flex items-center gap-6">
           <a
-            href="https://discord.gg/"
+            href="https://discord.gg/CjGY8NEkH"
             target="_blank"
             rel="noopener noreferrer"
             className="text-white/30 hover:text-cyan-400 text-[10px] tracking-[0.25em] uppercase transition-colors duration-200"
@@ -15,12 +15,12 @@ export default function Footer() {
             ◆ Discord
           </a>
           <a
-            href="https://twitter.com/"
+            href="https://youtube.com/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-white/30 hover:text-cyan-400 text-[10px] tracking-[0.25em] uppercase transition-colors duration-200"
           >
-            ◆ Twitter / X
+            ◆ Youtube / X
           </a>
         </div>
       </div>
