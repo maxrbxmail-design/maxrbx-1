@@ -220,13 +220,15 @@ export default function Navbar() {
       >
         {/* ── Desktop / mobile bar ──────────────────────────────────────── */}
         <div className="max-w-7xl mx-auto px-5 h-16 flex items-center justify-between gap-4">
-
-          {/* Logo */}
+          
+        {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 flex-shrink-0 group">
-            <div
-              className="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-extrabold text-black transition-all duration-200 group-hover:brightness-110"
-              style={{ backgroundColor: '#39FF14' }}
-            >M</div>
+            {/* This loads your image from the public folder! */}
+            <img 
+              src="/logo.png" 
+              alt="MaxRBX Logo" 
+              className="h-8 w-auto transition-all duration-200 group-hover:brightness-110"
+            />
             <span className="text-base font-extrabold tracking-tight text-white">
               Max<span style={{ color: '#39FF14' }}>RBX</span>
             </span>
